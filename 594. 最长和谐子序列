@@ -1,0 +1,18 @@
+594. 最长和谐子序列
+https://leetcode-cn.com/problems/longest-harmonious-subsequence/
+
+class Solution:
+    def findLHS(self, nums: List[int]) -> int:
+        if not nums: return 0 #if not的用法是判断后面nums是否为空/false
+        if len (nums)<2: return 0 #小于2，判断元素个数是否是1
+        hashmap = dict()
+        for i in nums:
+            hashmap[i] = hashmap.get(i,0) + 1 
+            #.get(k,alt): 返回 k 对应的值，如果没有则返回 alt
+            #get i的属性（是一个数字），然后+1。这个+1是用于计数的。
+        res = 0
+        for j, k in hashmap.items():
+            if hashmap.get(j + 1, 0) != 0:
+                res = max(res, hashmap.get(j + 1) + k)
+                #因为一个序列最多有两个元素，所以就是第一个元素的value加上第二个元素的value.
+        return res
